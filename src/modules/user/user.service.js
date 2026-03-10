@@ -150,5 +150,11 @@ export const logout=async(req,res,next)=>{
 
 
 export const getProfile = async (req,res) => {
+        const user = await dbService.findOneAndUpdate({
+                model: userModel,
+                filter: { _id: req.user._id },
+                update: { $inc: { visitsCount: 1 } },
+                options: { new: true }
+    });
         return success.success_response({res,message:"done",data:{...req.user._doc,phone:decrypt(req.user.phone)}})
 }
