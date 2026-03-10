@@ -1,0 +1,26 @@
+import mongoose from "mongoose";
+
+const revokeTokenSchema= new mongoose.Schema({
+    tokenId:{
+        type:String,
+        required:true,
+        trim:true
+    },
+    userId:{
+        type:mongoose.Types.ObjectId,
+        ref:"user",
+        required:true,
+    },
+    expiredAt:{
+        type:Date,
+        required:true
+    }
+},{
+    timestamps:true,
+    strictQuery:true
+})
+
+revokeTokenSchema.index("expireAt",{expireAfterSeconds:0})
+const revokeTokenModel = mongoose.models.user || mongoose.model("revokeToken",revokeTokenSchema);
+
+export default  revokeTokenModel;

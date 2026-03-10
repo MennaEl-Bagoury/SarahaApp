@@ -1,0 +1,46 @@
+export const create = async ({model,data} = {}) => {
+    return await model.create(data)
+}
+
+export const findOne = async ({model,filter = { },options={}} = {})=> {
+    const doc = model.findOne(filter)
+    if(options.populate){
+        doc.populate(options.populate)
+    }
+    return await doc.exec();
+}
+export const findById = async ({model,id,options={}} = {})=> {
+    const doc = model.findById(id)
+    if(options.populate){
+        doc.populate(options.populate)
+    }
+    return await doc.exec();
+}
+
+export const find = async ({model,filter = { },options={}} = {})=> {
+    const doc = model.find(filter)
+    //if you want to make skip , limit , populate , ... 
+    if(options.populate){
+        doc.populate(options.populate)
+    }
+    if(options.skip){
+        doc.skip(options.skip)
+    }
+    if(options.limit){
+        doc.limit(options.limit)
+    }
+    if(options.sort){
+        doc.limit(options.sort)
+    }
+    return await doc.exec();
+}
+
+export const updateOne = async ({model, filter = {} , update = { },options={}} = {})=> {
+    const doc = model.updateOne(filter,update,{runValidator:true , ...options})
+    return await doc.exec();
+}
+
+export const findOneAndUpdate = async ({model, filter = {} , update = { },options={}} = {})=> {
+    const doc = model.findOneAndUpdate(filter,update,{new:true,runValidator:true , ...options})
+    return await doc.exec();
+}
