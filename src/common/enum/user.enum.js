@@ -10,3 +10,7 @@ export const RoleEnum = {
     user:"user",
     admin:"admin"
 }
+export const EmailSubjectEnum = {
+    confirmEmail: "confirmEmail",
+    forgetPassword: "forgetPassword"
+}

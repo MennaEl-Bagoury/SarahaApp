@@ -32,3 +32,18 @@ export const multer_local = ({folder_path="general", file_type = []}) => {
 
   return upload;
 };
+
+
+export const multer_host = ({file_type = []}) => {
+    const storage = multer.diskStorage({});
+
+    function fileFilter (req, file, cb) {
+      if(!file_type.includes(file.mimetype)){
+        return cb(new Error("Invalid File Type"))
+      }
+      cb(null,true)
+    }
+
+    const upload = multer({ storage , fileFilter});
+    return upload;
+}

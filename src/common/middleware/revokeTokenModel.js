@@ -21,6 +21,6 @@ const revokeTokenSchema= new mongoose.Schema({
 })
 
 revokeTokenSchema.index("expireAt",{expireAfterSeconds:0})
-const revokeTokenModel = mongoose.models.user || mongoose.model("revokeToken",revokeTokenSchema);
+const revokeTokenModel = mongoose.models.revokeToken || mongoose.model("revokeToken",revokeTokenSchema);
 
 export default  revokeTokenModel;

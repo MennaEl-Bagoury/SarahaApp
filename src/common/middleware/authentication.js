@@ -1,7 +1,7 @@
 import * as authService from "../utils/auth.service.js"
-import {findById} from "../../DB/db.service.js"
+import * as dbService from "../../DB/db.service.js"
 import userModel from "../../DB/models/user.model.js";
-import { model } from "mongoose";
+import { SECRET_KEY } from "../../../config/config.service.js";
 import revokeTokenModel from "./revokeTokenModel.js";
 const authentication = async (req, res, next) => {
     const {authorization} = req.headers
@@ -14,13 +14,13 @@ const authentication = async (req, res, next) => {
     if(prefix !== "Bearer"){
         throw new Error("invalid token prefix");
     }
-    const decoded = authService.verifyToken({token:token,secret_key:"menna123"})
+    const decoded = authService.verifyToken({token:token,secret_key:SECRET_KEY})
 
     if (!decoded || !decoded?.id){
         throw new Error("invalid token");
 
     }
-    const user = await dbService.findOne({
+    const user = await dbService.findById({
         model:userModel,
         id:decoded.id
     })
